@@ -6,6 +6,14 @@
 window.OBSIDIANA = (function () {
   var CFG = window.OBSIDIANA_CONFIG || {};
   var CART_KEY = "obsidiana_cart";
+  var CART_ICO = '<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M2.5 4H5l1.7 9.3a1.5 1.5 0 0 0 1.48 1.24h7.9a1.5 1.5 0 0 0 1.47-1.2L20.5 6.5H6.2"/>' +
+    '<circle cx="9.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/>' +
+    '<g fill="currentColor" stroke="none" transform="translate(4,2.6) scale(0.08)">' +
+      '<path d="M100,92 C104,85 111,83 117,87 C115,80 120,76 125,77 C123,82 126,85 130,86 C141,79 152,78 160,77 C150,83 143,85 143,93 Q139,87 136,93 Q132,87 129,94 Q124,89 119,95 Q110,90 100,96 Z"/>' +
+      '<path transform="translate(200,0) scale(-1,1)" d="M100,92 C104,85 111,83 117,87 C115,80 120,76 125,77 C123,82 126,85 130,86 C141,79 152,78 160,77 C150,83 143,85 143,93 Q139,87 136,93 Q132,87 129,94 Q124,89 119,95 Q110,90 100,96 Z"/>' +
+      '<path d="M100,79 C97.5,79 96,81.5 96,85 C96,90 98,95 100,98 C102,95 104,90 104,85 C104,81.5 102.5,79 100,79 Z"/>' +
+    '</g></svg>';
   var _supa = null;
   var _products = null;
 
@@ -126,7 +134,7 @@ window.OBSIDIANA = (function () {
       '<nav class="mnav">' +
         '<a href="index.html"><i>⌂</i>Inicio</a>' +
         '<a href="catalogo.html"><i>❈</i>Catálogo</a>' +
-        '<button onclick="OBSIDIANA.openCart()"><i>⛨</i>Carrito<span class="cart-count" data-cart-count style="display:none">0</span></button>' +
+        '<button onclick="OBSIDIANA.openCart()"><span class="mnav-svg">' + CART_ICO + '</span>Carrito<span class="cart-count" data-cart-count style="display:none">0</span></button>' +
         '<a href="admin.html"><i>☾</i>Cuenta</a>' +
       '</nav>' +
       '<div class="toast" id="obs-toast"></div>';
@@ -216,7 +224,12 @@ window.OBSIDIANA = (function () {
   }
 
   /* ---------- Init común ---------- */
-  function init() { ensureUI(); renderCartCount(); }
+  function injectCartIcons() {
+    document.querySelectorAll("[data-cart-ico]").forEach(function (el) {
+      if (!el.dataset.done) { el.innerHTML = CART_ICO; el.dataset.done = "1"; }
+    });
+  }
+  function init() { ensureUI(); injectCartIcons(); renderCartCount(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 
