@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIANA · Haz relucir tu oscuridad</title>
+<meta name="description" content="Moda oscura atemporal. Piezas góticas de alta costura. Envíos a todo Chile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div class="announce">Envíos a todo Chile · Atención personalizada por WhatsApp</div>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <button class="menu-toggle" onclick="document.getElementById('mm').classList.add('open')" aria-label="Menú">☰</button>
+    <a class="header-logo" href="index.html">
+      <span data-logo="mark"></span>
+      <span class="wordmark">OBSIDIANA</span>
+    </a>
+    <nav class="nav">
+      <a href="catalogo.html">Catálogo</a>
+      <a href="catalogo.html?cat=ropa">Ropa</a>
+      <a href="catalogo.html?cat=accesorios">Accesorios</a>
+      <a href="catalogo.html?cat=joyas">Joyas</a>
+      <a href="catalogo.html?new=1">Nuevo</a>
+    </nav>
+    <div class="header-actions">
+      <a href="catalogo.html" class="icon-btn" aria-label="Buscar">⌕</a>
+      <button class="icon-btn" onclick="OBSIDIANA.openCart()" aria-label="Carrito">⛨
+        <span class="cart-count" data-cart-count style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MENÚ MÓVIL -->
+<div class="mobile-menu" id="mm">
+  <div class="mm-head">
+    <span class="wordmark goth" style="font-size:24px;letter-spacing:.12em">OBSIDIANA</span>
+    <button class="drawer-close" onclick="document.getElementById('mm').classList.remove('open')" aria-label="Cerrar">✕</button>
+  </div>
+  <nav>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="catalogo.html?cat=ropa">Ropa</a>
+    <a href="catalogo.html?cat=accesorios">Accesorios</a>
+    <a href="catalogo.html?cat=calzado">Calzado</a>
+    <a href="catalogo.html?cat=joyas">Joyas</a>
+    <a href="catalogo.html?new=1">Nuevo</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:40px">
+  <div class="hero-veil"></div>
+  <div>
+    <div class="hero-logo" data-logo="hero"></div>
+    <h1>OBSIDIANA</h1>
+    <p class="hero-tag">Haz relucir tu oscuridad</p>
+    <a href="catalogo.html" class="btn">Explorar colección</a>
+  </div>
+  <div class="scroll-hint">⌄</div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section>
+  <div class="wrap">
+    <div class="section-head"><h2>Categorías</h2><div class="rule"></div></div>
+    <div class="cats">
+      <a class="cat" href="catalogo.html?cat=ropa"><div class="cat-ph"></div><span class="cat-label">Ropa</span></a>
+      <a class="cat" href="catalogo.html?cat=accesorios"><div class="cat-ph"></div><span class="cat-label">Accesorios</span></a>
+      <a class="cat" href="catalogo.html?cat=calzado"><div class="cat-ph"></div><span class="cat-label">Calzado</span></a>
+      <a class="cat" href="catalogo.html?cat=joyas"><div class="cat-ph"></div><span class="cat-label">Joyas</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- DESTACADOS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head"><h2>La colección</h2><p>No seguimos tendencias. Creamos identidad.</p></div>
+    <div class="grid" id="featured"></div>
+    <div class="center" style="margin-top:52px"><a href="catalogo.html" class="btn btn-ghost">Ver todo</a></div>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section style="padding:0">
+  <div class="editorial">
+    <div class="editorial-panel">
+      <h3>Más que ropa.<br>Una forma de existir.</h3>
+      <p>OBSIDIANA es un refugio para quienes abrazan su lado más oscuro sin pedir permiso. Piezas atemporales, hechas para durar más que cualquier tendencia.</p>
+      <a href="catalogo.html?new=1" class="btn">Descubrir lo nuevo</a>
+    </div>
+    <div class="cat" style="min-height:420px"><div class="cat-ph"></div><span class="cat-label" style="font-size:20px">Colección Eclipse</span></div>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<div class="wrap">
+  <div class="trust">
+    <div><div class="t">Envíos a todo Chile</div><div class="s">Despacho seguro y rastreable</div></div>
+    <div><div class="t">Pago flexible</div><div class="s">Coordinado por WhatsApp</div></div>
+    <div><div class="t">Atención cercana</div><div class="s">Hablas directo con nosotras</div></div>
+    <div><div class="t">Piezas limitadas</div><div class="s">Stock reducido, carácter único</div></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="wordmark">OBSIDIANA</span>
+        <p>Haz relucir tu oscuridad. Moda oscura atemporal desde Chile.</p>
+        <div class="socials"><a href="#" aria-label="Instagram">◈</a><a href="#" aria-label="TikTok">◇</a><a href="#" aria-label="Pinterest">✦</a></div>
+      </div>
+      <div><h4>Tienda</h4><ul>
+        <li><a href="catalogo.html?cat=ropa">Ropa</a></li>
+        <li><a href="catalogo.html?cat=accesorios">Accesorios</a></li>
+        <li><a href="catalogo.html?cat=calzado">Calzado</a></li>
+        <li><a href="catalogo.html?cat=joyas">Joyas</a></li>
+      </ul></div>
+      <div><h4>Ayuda</h4><ul>
+        <li><a href="#">Envíos y devoluciones</a></li>
+        <li><a href="#">Guía de tallas</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul></div>
+      <div>
+        <h4>Únete a la oscuridad</h4>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Novedades y lanzamientos antes que nadie.</p>
+        <form class="newsletter" onsubmit="event.preventDefault();OBSIDIANA.toast('Gracias por unirte')">
+          <input type="email" placeholder="Tu correo" required>
+          <button type="submit" aria-label="Suscribirse">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">© 2026 OBSIDIANA · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/data/seed-products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/logo.js"></script>
+<script src="assets/js/store.js"></script>
+<script>
+  OBSIDIANA.loadProducts().then(function (all) {
+    OBSIDIANA.renderGrid("featured", all.slice(0, 8));
+  });
+</script>
+</body>
+</html>

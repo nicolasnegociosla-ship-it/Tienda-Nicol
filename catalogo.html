@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo · OBSIDIANA</title>
+<meta name="description" content="Explora la colección OBSIDIANA. Moda oscura atemporal.">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div class="announce">Envíos a todo Chile · Atención personalizada por WhatsApp</div>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <button class="menu-toggle" onclick="document.getElementById('mm').classList.add('open')" aria-label="Menú">☰</button>
+    <a class="header-logo" href="index.html"><span data-logo="mark"></span><span class="wordmark">OBSIDIANA</span></a>
+    <nav class="nav">
+      <a href="catalogo.html">Catálogo</a>
+      <a href="catalogo.html?cat=ropa">Ropa</a>
+      <a href="catalogo.html?cat=accesorios">Accesorios</a>
+      <a href="catalogo.html?cat=joyas">Joyas</a>
+      <a href="catalogo.html?new=1">Nuevo</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="OBSIDIANA.openCart()" aria-label="Carrito">⛨
+        <span class="cart-count" data-cart-count style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <div class="mm-head"><span class="wordmark goth" style="font-size:24px">OBSIDIANA</span>
+    <button class="drawer-close" onclick="document.getElementById('mm').classList.remove('open')">✕</button></div>
+  <nav>
+    <a href="catalogo.html">Catálogo</a><a href="catalogo.html?cat=ropa">Ropa</a>
+    <a href="catalogo.html?cat=accesorios">Accesorios</a><a href="catalogo.html?cat=calzado">Calzado</a>
+    <a href="catalogo.html?cat=joyas">Joyas</a><a href="catalogo.html?new=1">Nuevo</a>
+  </nav>
+</div>
+
+<div class="page-head"><h1 id="cat-title">Catálogo</h1></div>
+
+<main class="wrap" style="padding-bottom:80px">
+  <div class="catalog-top">
+    <div class="filters" id="filters">
+      <button class="filter" data-cat="all">Todo</button>
+      <button class="filter" data-cat="ropa">Ropa</button>
+      <button class="filter" data-cat="accesorios">Accesorios</button>
+      <button class="filter" data-cat="calzado">Calzado</button>
+      <button class="filter" data-cat="joyas">Joyas</button>
+      <button class="filter" data-cat="new">Nuevo</button>
+    </div>
+    <div class="sort">
+      <select id="sort" onchange="applyFilters()">
+        <option value="feat">Destacados</option>
+        <option value="low">Precio: menor a mayor</option>
+        <option value="high">Precio: mayor a menor</option>
+        <option value="az">Nombre A–Z</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer class="footer" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="copyright">© 2026 OBSIDIANA · Haz relucir tu oscuridad</div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/data/seed-products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/logo.js"></script>
+<script src="assets/js/store.js"></script>
+<script>
+  var ALL = [];
+  var params = new URLSearchParams(location.search);
+  var current = params.get("cat") || (params.get("new") ? "new" : "all");
+
+  OBSIDIANA.loadProducts().then(function (all) { ALL = all; setActive(current); applyFilters(); });
+
+  function setActive(cat) {
+    current = cat;
+    document.querySelectorAll(".filter").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.cat === cat);
+    });
+    var titles = { all:"Catálogo", ropa:"Ropa", accesorios:"Accesorios", calzado:"Calzado", joyas:"Joyas", new:"Nueva colección" };
+    document.getElementById("cat-title").textContent = titles[cat] || "Catálogo";
+  }
+
+  document.querySelectorAll(".filter").forEach(function (b) {
+    b.addEventListener("click", function () { setActive(b.dataset.cat); applyFilters(); });
+  });
+
+  function applyFilters() {
+    var list = ALL.slice();
+    if (current === "new") list = list.filter(function (p) { return p.is_new; });
+    else if (current !== "all") list = list.filter(function (p) { return p.category === current; });
+
+    var s = document.getElementById("sort").value;
+    if (s === "low") list.sort(function (a,b){return a.price-b.price;});
+    else if (s === "high") list.sort(function (a,b){return b.price-a.price;});
+    else if (s === "az") list.sort(function (a,b){return a.name.localeCompare(b.name);});
+    else list.sort(function (a,b){return (b.is_new?1:0)-(a.is_new?1:0);});
+
+    OBSIDIANA.renderGrid("grid", list);
+  }
+</script>
+</body>
+</html>

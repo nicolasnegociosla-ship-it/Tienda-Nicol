@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel · OBSIDIANA</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .a-top{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--line)}
+  .a-top .brand{display:flex;align-items:center;gap:10px}
+  .a-top .brand .obs-logo svg{width:34px}
+  .a-top .brand span{font-family:var(--goth);font-size:22px;letter-spacing:.12em}
+  .a-wrap{max-width:900px;margin:0 auto;padding:36px 24px 90px}
+  .a-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+  .a-head h1{font-family:var(--goth);font-size:34px;font-weight:500}
+  .a-head .a-sub{color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+  .a-row{display:flex;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);margin-bottom:10px;background:var(--bg-2)}
+  .a-thumb{width:56px;height:70px;flex-shrink:0;background:var(--bg-3);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-size:9px}
+  .a-thumb img{width:100%;height:100%;object-fit:cover}
+  .a-info{flex:1;min-width:0}
+  .a-name{font-size:14px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .a-meta{color:var(--muted);font-size:12px;margin-top:4px;text-transform:capitalize}
+  .a-badge{font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;color:#fff}
+  .a-red{background:var(--red)} .a-purple{background:var(--purple)} .a-silver{background:var(--line-2);color:var(--silver)} .a-none{background:var(--line-2);color:var(--silver)}
+  .a-actions{display:flex;gap:8px;flex-shrink:0}
+  .a-btn{background:transparent;border:1px solid var(--line-2);color:var(--silver);padding:8px 14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
+  .a-btn:hover{border-color:var(--silver);color:var(--white)}
+  .a-danger:hover{border-color:var(--red-soft);color:var(--red-soft)}
+  .a-empty{text-align:center;color:var(--muted);padding:60px 20px;font-size:13px}
+  .a-primary{background:var(--white);color:var(--bg);border:none;padding:13px 24px;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  /* login / setup */
+  .a-center{max-width:420px;margin:0 auto;padding:80px 24px;text-align:center}
+  .a-center .obs-logo svg{width:70px;margin:0 auto 20px}
+  .a-center h2{font-family:var(--goth);font-size:30px;font-weight:500;margin-bottom:8px}
+  .a-center p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:24px}
+  .a-field{text-align:left;margin-bottom:16px}
+  .a-field label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .a-input,.a-select,.a-textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);color:var(--white);padding:12px 14px;font-size:14px;font-family:var(--sans)}
+  .a-input:focus,.a-select:focus,.a-textarea:focus{outline:none;border-color:var(--silver)}
+  .a-textarea{resize:vertical;min-height:90px}
+  .a-err{color:var(--red-soft);font-size:12px;min-height:16px;margin-bottom:8px}
+  .a-note{background:var(--bg-2);border:1px solid var(--line);padding:18px;text-align:left;font-size:12px;color:var(--muted);line-height:1.7;margin-top:20px}
+  .a-note code{color:var(--silver);background:#000;padding:2px 6px;font-size:11px}
+  /* modal form */
+  .a-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:flex-start;justify-content:center;z-index:100;overflow-y:auto;padding:40px 16px}
+  .a-modal.open{display:flex}
+  .a-form{background:var(--bg-2);border:1px solid var(--line);width:100%;max-width:520px;padding:32px}
+  .a-form h3{font-family:var(--goth);font-size:26px;font-weight:500;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center}
+  .a-form .x{background:none;border:none;color:var(--silver);font-size:22px}
+  .a-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .a-check{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--silver);margin:4px 0 16px}
+  .a-preview{width:100%;height:170px;background:var(--bg-3) center/cover no-repeat;border:1px dashed var(--line-2);display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-size:12px;margin-top:8px}
+  .a-preview.empty::after{content:"Vista previa de la foto"}
+  .a-file{display:inline-block;border:1px solid var(--line-2);color:var(--silver);padding:10px 16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:8px}
+  @media(max-width:600px){.a-2col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="a-top">
+  <div class="brand"><span data-logo="mark"></span><span>OBSIDIANA</span></div>
+  <button class="a-btn" onclick="ADMIN.logout()" id="logout-top">Cerrar sesión</button>
+</div>
+
+<!-- VISTA: SETUP NECESARIO -->
+<div id="view-setup" class="hidden">
+  <div class="a-center">
+    <div data-logo="mark"></div>
+    <h2>Casi listo</h2>
+    <p>El panel necesita conectarse a Supabase (gratis) para guardar productos y fotos.
+       Sigue la guía del archivo <strong>README</strong> y pega tus llaves en
+       <code>assets/js/config.js</code>. Toma 5 minutos.</p>
+    <div class="a-note" id="setup-extra">
+      Pasos: crear cuenta en supabase.com → crear proyecto → copiar <code>URL</code> y <code>anon key</code>
+      en config.js → correr el <code>supabase/setup.sql</code> → crear el usuario de la dueña.
+    </div>
+  </div>
+</div>
+
+<!-- VISTA: LOGIN -->
+<div id="view-login" class="hidden">
+  <div class="a-center">
+    <div data-logo="mark"></div>
+    <h2>Panel de la tienda</h2>
+    <p>Ingresa con tu correo y contraseña.</p>
+    <div class="a-err" id="login-error"></div>
+    <div class="a-field"><label>Correo</label><input class="a-input" id="login-email" type="email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="a-field"><label>Contraseña</label><input class="a-input" id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')ADMIN.login()"></div>
+    <button class="a-primary btn-block" id="login-btn" onclick="ADMIN.login()" style="margin-top:8px">Ingresar</button>
+  </div>
+</div>
+
+<!-- VISTA: DASHBOARD -->
+<div id="view-dashboard" class="hidden">
+  <div class="a-wrap">
+    <div class="a-head">
+      <div>
+        <h1>Tus productos</h1>
+        <div class="a-sub" id="admin-count">—</div>
+      </div>
+      <button class="a-primary" onclick="ADMIN.newProduct()">+ Nuevo producto</button>
+    </div>
+    <div id="admin-list"></div>
+  </div>
+</div>
+
+<!-- MODAL FORM -->
+<div class="a-modal" id="form-modal">
+  <div class="a-form">
+    <h3><span id="form-title">Nuevo producto</span><button class="x" onclick="ADMIN.closeForm()">✕</button></h3>
+
+    <div class="a-field"><label>Nombre</label><input class="a-input" id="f-name" placeholder="Ej: Vestido Lunar"></div>
+
+    <div class="a-2col">
+      <div class="a-field"><label>Precio (CLP)</label><input class="a-input" id="f-price" type="number" placeholder="45000"></div>
+      <div class="a-field"><label>Categoría</label>
+        <select class="a-select" id="f-category">
+          <option value="ropa">Ropa</option>
+          <option value="accesorios">Accesorios</option>
+          <option value="calzado">Calzado</option>
+          <option value="joyas">Joyas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="a-field"><label>Descripción</label><textarea class="a-textarea" id="f-desc" placeholder="Cuenta la historia de la pieza…"></textarea></div>
+
+    <div class="a-field"><label>Tallas (separadas por coma)</label><input class="a-input" id="f-sizes" placeholder="XS, S, M, L, XL"></div>
+
+    <div class="a-2col">
+      <div class="a-field"><label>Colección</label><input class="a-input" id="f-collection" placeholder="Ej: Eclipse"></div>
+      <div class="a-field"><label>Acento (si es nueva)</label>
+        <select class="a-select" id="f-accent">
+          <option value="none">Plateado (normal)</option>
+          <option value="red">Rojo</option>
+          <option value="purple">Morado</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="a-check"><input type="checkbox" id="f-new"> Marcar como colección nueva (muestra la etiqueta de color)</label>
+
+    <div class="a-field">
+      <label>Foto del producto</label>
+      <input type="file" id="f-image" accept="image/*" style="display:none" onchange="ADMIN.onImagePick(this)">
+      <input type="hidden" id="f-image-url">
+      <label class="a-file" for="f-image">Elegir foto…</label>
+      <div class="a-preview empty" id="f-preview"></div>
+    </div>
+
+    <button class="a-primary btn-block" id="save-btn" onclick="ADMIN.save()" style="margin-top:10px">Guardar producto</button>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/logo.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

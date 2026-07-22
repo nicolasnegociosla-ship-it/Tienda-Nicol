@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producto · OBSIDIANA</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div class="announce">Envíos a todo Chile · Atención personalizada por WhatsApp</div>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <button class="menu-toggle" onclick="document.getElementById('mm').classList.add('open')" aria-label="Menú">☰</button>
+    <a class="header-logo" href="index.html"><span data-logo="mark"></span><span class="wordmark">OBSIDIANA</span></a>
+    <nav class="nav">
+      <a href="catalogo.html">Catálogo</a>
+      <a href="catalogo.html?cat=ropa">Ropa</a>
+      <a href="catalogo.html?cat=accesorios">Accesorios</a>
+      <a href="catalogo.html?cat=joyas">Joyas</a>
+      <a href="catalogo.html?new=1">Nuevo</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="OBSIDIANA.openCart()" aria-label="Carrito">⛨
+        <span class="cart-count" data-cart-count style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <div class="mm-head"><span class="wordmark goth" style="font-size:24px">OBSIDIANA</span>
+    <button class="drawer-close" onclick="document.getElementById('mm').classList.remove('open')">✕</button></div>
+  <nav>
+    <a href="catalogo.html">Catálogo</a><a href="catalogo.html?cat=ropa">Ropa</a>
+    <a href="catalogo.html?cat=accesorios">Accesorios</a><a href="catalogo.html?cat=calzado">Calzado</a>
+    <a href="catalogo.html?cat=joyas">Joyas</a><a href="catalogo.html?new=1">Nuevo</a>
+  </nav>
+</div>
+
+<main class="wrap" id="product-root" style="padding-bottom:90px">
+  <div class="empty-state">Cargando…</div>
+</main>
+
+<footer class="footer" style="border-top:1px solid var(--line)">
+  <div class="wrap"><div class="copyright">© 2026 OBSIDIANA · Haz relucir tu oscuridad</div></div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/data/seed-products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/logo.js"></script>
+<script src="assets/js/store.js"></script>
+<script>
+  var selectedSize = null;
+  var id = new URLSearchParams(location.search).get("id");
+
+  OBSIDIANA.loadProducts().then(function () {
+    var p = OBSIDIANA.findProduct(id);
+    var root = document.getElementById("product-root");
+    if (!p) { root.innerHTML = '<div class="empty-state">Esta pieza ya no está disponible.<br><a href="catalogo.html" class="btn btn-ghost" style="margin-top:24px">Volver al catálogo</a></div>'; return; }
+    selectedSize = p.sizes[0];
+
+    var gallery = p.image ? '<img src="' + p.image + '" alt="' + OBSIDIANA.esc(p.name) + '">' : '<div class="card-ph">' + OBSIDIANA.esc(p.name) + '</div>';
+    var badge = "";
+    if (p.is_new) { var c = p.accent==="red"?"badge-red":p.accent==="purple"?"badge-purple":"badge-silver";
+      badge = '<span class="badge '+c+'" style="top:16px">'+OBSIDIANA.esc(p.collection||"Nuevo")+'</span>'; }
+
+    var sizes = p.sizes.map(function (s, i) {
+      return '<button class="size' + (i===0?' active':'') + '" onclick="pickSize(this,\'' + OBSIDIANA.esc(s) + '\')">' + OBSIDIANA.esc(s) + '</button>';
+    }).join("");
+
+    root.innerHTML =
+      '<div class="breadcrumb"><a href="index.html">Inicio</a> / <a href="catalogo.html?cat=' + p.category + '">' + p.category + '</a> / ' + OBSIDIANA.esc(p.name) + '</div>' +
+      '<div class="product">' +
+        '<div class="product-gallery">' + badge + gallery + '</div>' +
+        '<div class="product-info">' +
+          (p.collection ? '<div class="product-collection">Colección ' + OBSIDIANA.esc(p.collection) + '</div>' : '') +
+          '<h1>' + OBSIDIANA.esc(p.name) + '</h1>' +
+          '<div class="product-price">' + OBSIDIANA.fmt(p.price) + '</div>' +
+          '<p class="product-desc">' + OBSIDIANA.esc(p.description) + '</p>' +
+          '<div class="opt-label">Talla</div>' +
+          '<div class="sizes">' + sizes + '</div>' +
+          '<div class="product-actions">' +
+            '<button class="btn btn-block" onclick="addNow(\'' + OBSIDIANA.esc(p.id) + '\')">Agregar al carrito</button>' +
+            '<button class="btn-wa" onclick="buyNow(\'' + OBSIDIANA.esc(p.id) + '\')">✆ Comprar ahora por WhatsApp</button>' +
+          '</div>' +
+          '<div class="accordion">' +
+            accItem("Descripción", p.description) +
+            accItem("Materiales y cuidados", "Confección premium. Lavar a mano en agua fría, no usar blanqueador, secar a la sombra. Cada pieza es de stock limitado.") +
+            accItem("Envíos y devoluciones", "Envíos a todo Chile, coordinados por WhatsApp. Cambios dentro de 7 días en producto sin uso.") +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.title = p.name + " · OBSIDIANA";
+  });
+
+  function accItem(t, b) {
+    return '<div class="acc-item"><button class="acc-head" onclick="this.parentNode.classList.toggle(\'open\')">' + t + ' <span class="pm">+</span></button>' +
+      '<div class="acc-body"><p>' + OBSIDIANA.esc(b) + '</p></div></div>';
+  }
+  function pickSize(btn, s) { selectedSize = s; document.querySelectorAll(".size").forEach(function(b){b.classList.remove("active");}); btn.classList.add("active"); }
+  function addNow(pid) { var p = OBSIDIANA.findProduct(pid); OBSIDIANA.addToCart(p, selectedSize, 1); }
+  function buyNow(pid) { var p = OBSIDIANA.findProduct(pid); OBSIDIANA.addToCart(p, selectedSize, 1); OBSIDIANA.checkout(); }
+</script>
+</body>
+</html>
