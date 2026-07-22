@@ -14,8 +14,8 @@ window.OBSIDIANA_CONFIG = {
      Cuando crees tu proyecto en supabase.com, pega aquí la URL y la anon key
      (Project Settings -> API). Mientras estén vacías, la tienda usa el
      catálogo de ejemplo (seed) para que igual se vea todo funcionando.       */
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://omswcwvermomspsmsnfo.supabase.co",
+  supabaseAnonKey: "sb_publishable_VbPRcD1ujcwXNTkag8BxKg_y7hqTKQG",
 
   /* Moneda / país */
   currency: "CLP",

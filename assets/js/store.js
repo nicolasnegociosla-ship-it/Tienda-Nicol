@@ -123,6 +123,12 @@ window.OBSIDIANA = (function () {
           '<button class="btn-wa" onclick="OBSIDIANA.checkout()">✆ Finalizar por WhatsApp</button>' +
         '</div>' +
       '</aside>' +
+      '<nav class="mnav">' +
+        '<a href="index.html"><i>⌂</i>Inicio</a>' +
+        '<a href="catalogo.html"><i>❈</i>Catálogo</a>' +
+        '<button onclick="OBSIDIANA.openCart()"><i>⛨</i>Carrito<span class="cart-count" data-cart-count style="display:none">0</span></button>' +
+        '<a href="admin.html"><i>☾</i>Cuenta</a>' +
+      '</nav>' +
       '<div class="toast" id="obs-toast"></div>';
     document.body.appendChild(el);
   }
