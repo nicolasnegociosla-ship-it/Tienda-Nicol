@@ -29,7 +29,7 @@
     </nav>
     <div class="header-actions">
       <a href="catalogo.html" class="icon-btn" aria-label="Buscar">⌕</a>
-      <button class="icon-btn" onclick="OBSIDIANA.openCart()" aria-label="Carrito">⛨
+      <button class="icon-btn" onclick="OBSIDIANA.openCart()" aria-label="Carrito"><span data-cart-ico></span>
         <span class="cart-count" data-cart-count style="display:none">0</span>
       </button>
     </div>
@@ -53,10 +53,15 @@
 </div>
 
 <!-- HERO -->
-<section class="hero" style="padding-top:40px">
+<section class="hero hero-video">
+  <video class="hero-bg hero-bg-desktop" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-desktop.jpg">
+    <source src="assets/video/hero-desktop.mp4" type="video/mp4">
+  </video>
+  <video class="hero-bg hero-bg-mobile" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-mobile.jpg">
+    <source src="assets/video/hero-mobile.mp4" type="video/mp4">
+  </video>
   <div class="hero-veil"></div>
-  <div>
-    <div class="hero-logo" data-logo="hero"></div>
+  <div class="hero-content">
     <h1>OBSIDIANA</h1>
     <p class="hero-tag">Haz relucir tu oscuridad</p>
     <a href="catalogo.html" class="btn">Explorar colección</a>
